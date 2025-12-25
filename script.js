@@ -756,7 +756,7 @@ function initAdmin() {
     }
 
     let keySequence = [];
-    const secretCode = "GELİŞTİRİCİ ŞİFRESİ";
+    const secretCode = "g5566345g";
 
     document.addEventListener('keydown', (e) => {
         keySequence.push(e.key);

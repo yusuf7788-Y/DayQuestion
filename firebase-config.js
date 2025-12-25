@@ -1,9 +1,9 @@
 export const firebaseConfig = {
-    apiKey: "API_KEY",
-    authDomain: "AUTH_DOMAIN",
-    projectId: "PROJECT_ID",
-    storageBucket: "STORAGE_BUCKET",
-    messagingSenderId: "MESSAGING_SENDER_ID",
-    appId: "APP_ID",
-    measurementId: "MEASUREMENT_ID"
+    apiKey: "AIzaSyB2wqn7DPabIMnYH_5rmJ9fXprln0qkzzM",
+    authDomain: "dayquestion.firebaseapp.com",
+    projectId: "dayquestion",
+    storageBucket: "dayquestion.firebasestorage.app",
+    messagingSenderId: "877962191294",
+    appId: "1:877962191294:web:b2a683a8bc94b3be8b19ef",
+    measurementId: "G-H1WR2V173G"
 };
