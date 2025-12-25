@@ -45,6 +45,17 @@ Projeyi kendi bilgisayarınızda çalıştırmak için:
      npx serve .
      ```
 
+     npx serve .
+     ```
+
+## ⚠️ Önemli Yapılandırma (Configuration)
+
+Projeyi çalıştırmadan önce aşağıdaki dosyaları kendi bilgilerinizle güncellemeniz gerekmektedir:
+
+- **src/firebase-config.js**: Kendi Firebase proje bilgilerinizi giriniz.
+- **src/admin.js**: Admin panelinde görünecek soruları düzenleyiniz.
+- **src/script.js (Satır 759)**: `secretCode` değişkenine kendi geliştirici şifrenizi belirleyiniz.
+
 ## 🤝 Katkıda Bulunma
 
 Fikirleriniz bizim için değerli! Pull request göndermekten çekinmeyin.
