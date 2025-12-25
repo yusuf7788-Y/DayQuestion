@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DayQuestion</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="apple-touch-icon" href="icon.png">
+    <link rel="icon" type="image/png" href="icon.png">
+</head>
+
+<body>
+    <button id="theme-toggle" class="theme-toggle" title="Karanlık/Aydınlık Mod">
+        <i class="fas fa-moon"></i>
+    </button>
+
+    <!-- Protected Assets -->
+    <img src="asset1.png" alt="Decoration Top" class="asset asset-top-right unselectable undraggable">
+    <img src="asset2.png" alt="Decoration Bottom" class="asset asset-bottom-left unselectable undraggable">
+
+    <!-- Header / Logo -->
+    <header>
+        <a href="/" class="logo-link">
+            <img src="logo.png" alt="DayQuestion Logo" class="logo unselectable undraggable">
+        </a>
+    </header>
+
+    <!-- History Navigation -->
+    <div class="nav-container">
+        <button id="menu-toggle" class="menu-toggle">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+        <div id="history-bar" class="history-bar hidden">
+            <!-- Driven by JS -->
+        </div>
+    </div>
+
+    <!-- Username Modal -->
+    <div id="username-modal" class="modal-overlay hidden">
+        <div class="modal-content">
+            <h2>Hoşgeldin!</h2>
+            <p>Yorum yapabilmek için bir takma ad belirle.</p>
+            <input type="text" id="username-input" placeholder="Kullanıcı Adı" maxlength="15">
+            <button id="save-username-btn">Devam Et</button>
+        </div>
+    </div>
+
+    <main class="container">
+        <!-- Topic Section -->
+        <section class="topic-section">
+            <h2 class="topic-label">Günün konusu:</h2>
+            <h1 id="daily-topic" class="skeleton-text">Yükleniyor...</h1>
+            <button id="share-btn" class="share-btn" title="Paylaş">
+                <i class="fa-solid fa-share-nodes"></i> <span id="share-text">Paylaş</span>
+            </button>
+        </section>
+
+        <!-- Topic Image -->
+        <div id="topic-image-container" class="topic-image-container">
+            <!-- Image injected via JS -->
+        </div>
+
+        <!-- Timer -->
+        <!-- Moved Timer inside Topic or below? Design 2 has clean look. Let's put timer small below title or near footer? 
+              User said "Geri sayım saati" is needed. Let's keep it but make it stylish. -->
+        <div id="countdown" class="countdown">
+            Kalan Süre: <span id="timer">--:--:--</span>
+        </div>
+
+        <!-- Input Section -->
+        <!-- Design 2: Pill shape, gray bg, orange arrow button inside -->
+        <section class="input-section" id="input-container">
+            <div class="input-wrapper">
+                <input type="text" id="comment-input" placeholder="Yorumunu yap" maxlength="140" autocomplete="off">
+                <button id="send-btn"><i class="fa-solid fa-share"></i></button>
+            </div>
+            <div class="char-counter"><span id="char-count">0</span>/140</div>
+        </section>
+
+        <div id="lock-message" class="lock-message hidden">
+            <i class="fa-solid fa-lock"></i> Bugünlük hakkını kullandın. Yarın görüşürüz!
+        </div>
+
+        <!-- Comments Section -->
+        <section class="comments-section">
+            <h2 class="comments-title">Yorumlar:</h2>
+            <div id="comments-list">
+                <!-- Comments will be injected here -->
+            </div>
+        </section>
+    </main>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast">
+        <span id="toast-message"></span>
+    </div>
+
+    <!-- Admin Tools -->
+    <button id="admin-close-btn" class="admin-close-btn" title="Developer Modundan Çık">
+        <i class="fa-solid fa-xmark"></i>
+    </button>
+    <div id="admin-delete-bar" class="admin-delete-bar">
+        <span><i class="fa-solid fa-gears"></i> KONTROL PANELİ</span>
+        <div class="admin-date-picker">
+            <input type="date" id="admin-date-input" title="Tarih Simülasyonu">
+        </div>
+        <button id="admin-add-topic-btn" title="Yeni Soru Ekle">SORU EKLE</button>
+        <button id="admin-delete-btn">SEÇİLENLERİ SİL</button>
+    </div>
+
+    <!-- Admin Add Topic Modal -->
+    <div id="admin-topic-modal" class="modal-overlay hidden">
+        <div class="modal-content">
+            <h2 id="admin-modal-title">Yeni Soru Ekle</h2>
+            <div class="input-group">
+                <input type="text" id="new-topic-title-tr" placeholder="Soru Başlığı (Türkçe)">
+                <input type="text" id="new-topic-title-en" placeholder="Question Title (English)">
+                <input type="text" id="new-topic-image" placeholder="Resim URL (https://...)">
+                <input type="date" id="new-topic-date">
+            </div>
+            <div class="modal-buttons">
+                <button id="close-topic-modal-btn" class="cancel-btn">İPTAL</button>
+                <button id="save-topic-db-btn" class="save-btn">KAYDET</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="feedback-corner">
+        <i class="fa-solid fa-circle-info"></i> <span id="feedback-text">Geri bildirim sağlayın:</span> <a
+            href="javascript:void(0)" onclick="copyEmail('yus7f42@gmail.com')">yus7f42@gmail.com</a>
+    </div>
+
+    <!-- User Identity Display -->
+    <div id="user-tag" class="user-tag"></div>
+
+    <!-- Language Switcher -->
+    <div id="lang-switcher" class="lang-switcher">
+        <div id="current-lang-btn" class="lang-btn">
+            <img src="" alt="flag" class="flag-img">
+        </div>
+        <div id="lang-options" class="lang-options hidden">
+            <div class="lang-option" data-lang="tr">
+                <img src="https://flagcdn.com/w40/tr.png" alt="TR" class="flag-img">
+                <span>Türkçe</span>
+            </div>
+            <div class="lang-option" data-lang="en">
+                <img src="https://flagcdn.com/w40/us.png" alt="EN" class="flag-img">
+                <span>English</span>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        &copy; The site was created by 1Day2Min and its owner is Ufine.
+    </footer>
+
+    <!-- Firebase SDKs -->
+    <script type="module" src="script.js"></script>
+</body>
+
+</html>
