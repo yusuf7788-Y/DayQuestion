@@ -1,0 +1,26 @@
+name: Daily Push Notification
+on:
+  schedule:
+    # Run at 09:00 UTC (12:00 TRT) and 21:00 UTC (00:00 TRT)
+    - cron: '0 9,21 * * *'
+  workflow_dispatch: # Allows manual triggering
+
+jobs:
+  send-push:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run Push Script
+        env:
+          FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+        run: npm run send-push

@@ -55,6 +55,8 @@ Projeyi çalıştırmadan önce aşağıdaki dosyaları kendi bilgilerinizle gü
 - **src/firebase-config.js**: Kendi Firebase proje bilgilerinizi giriniz.
 - **src/admin.js**: Admin panelinde görünecek soruları düzenleyiniz.
 - **src/script.js (Satır 759)**: `secretCode` değişkenine kendi geliştirici şifrenizi belirleyiniz.
+- **src/script.js (Satır 42)**: `validKey` kısmına Firebase Console'dan aldığınız VAPID Key'i giriniz.
+- **GitHub Secret**: Otomatik bildirimler için Firebase Console -> Project Settings -> Service Accounts -> "Generate new private key" diyerek indirdiğiniz JSON dosyasının İÇERİĞİNİ kopyalayıp, GitHub Repo -> Settings -> Secrets and variables -> Actions -> "New repository secret" diyerek `FIREBASE_SERVICE_ACCOUNT` adıyla ekleyiniz.
 
 ## 🤝 Katkıda Bulunma
 

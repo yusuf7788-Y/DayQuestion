@@ -1,10 +1,56 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
 import { getFirestore, collection, addDoc, query, orderBy, onSnapshot, doc, updateDoc, increment, getDoc, setDoc, runTransaction, deleteDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+import { getMessaging, getToken, onMessage } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-messaging.js";
 import { firebaseConfig } from "./firebase-config.js";
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
+const messaging = getMessaging(app);
+
+// Register Service Worker for PWA & Notifications
+if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('./firebase-messaging-sw.js')
+        .then((registration) => {
+            console.log('Service Worker registered with scope:', registration.scope);
+        }).catch((err) => {
+            console.log('Service Worker registration failed:', err);
+        });
+}
+
+// Request Notification Permission
+async function requestNotificationPermission() {
+    try {
+        const permission = await Notification.requestPermission();
+        if (permission === 'granted') {
+            const token = await getToken(messaging, {
+                vapidKey: "BDXIKoezJn1fUV4mLKG9W6MPqqK3iIPXO3gNR1cmB_YBnHWA5081-NpuMHgFi9t3hfviiLdpSIEh_Sk31-O_gDk"
+            });
+            if (token) {
+                console.log('FCM Token:', token);
+                // Save token to database if user is logged in (optional but good for targeting)
+                if (userIp) {
+                    await setDoc(doc(db, "fcm_tokens", userIp), {
+                        token: token,
+                        lastUpdated: new Date()
+                    });
+                }
+            }
+        } else {
+            console.log('Notification permission denied.');
+        }
+    } catch (error) {
+        console.log('An error occurred while retrieving token. ', error);
+    }
+}
+
+// Handle foreground messages
+onMessage(messaging, (payload) => {
+    console.log('Message received. ', payload);
+    const { title, body } = payload.notification;
+    showToast(`${title}: ${body}`, 'info');
+});
+
 
 // DOM Elements
 const commentInput = document.getElementById('comment-input');
@@ -691,6 +737,7 @@ async function init() {
             usernameModal.classList.remove('hidden');
         }
 
+        requestNotificationPermission(); // Ask for permission on load
         initAdmin(); // Separate admin initialization
     } catch (e) {
         console.error("Initialization failed:", e);

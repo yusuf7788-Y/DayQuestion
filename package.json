@@ -1,0 +1,14 @@
+{
+    "name": "dayquestion-notifier",
+    "version": "1.0.0",
+    "description": "Automated push notification script for DayQuestion",
+    "main": "scripts/send-push.js",
+    "scripts": {
+        "send-push": "node scripts/send-push.js"
+    },
+    "dependencies": {
+        "firebase-admin": "^11.11.1"
+    },
+    "author": "Ufine Digital",
+    "license": "MIT"
+}
