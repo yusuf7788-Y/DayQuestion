@@ -51,7 +51,7 @@ Projeyi kendi bilgisayarınızda çalıştırmak için:
 ## ⚠️ Önemli Yapılandırma (Configuration)
 
 Projeyi çalıştırmadan önce aşağıdaki dosyaları kendi bilgilerinizle güncellemeniz gerekmektedir:
-
+- **index.html (Satır 130)**: `copyEmail` fonksiyonuna kendi e-posta adresinizi giriniz.
 - **src/firebase-config.js**: Kendi Firebase proje bilgilerinizi giriniz.
 - **src/admin.js**: Admin panelinde görünecek soruları düzenleyiniz.
 - **src/script.js (Satır 759)**: `secretCode` değişkenine kendi geliştirici şifrenizi belirleyiniz.
